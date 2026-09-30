@@ -1,0 +1,813 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Georgia, serif;
+    background: #05000d;
+}
+
+input {
+    display: none;
+}
+
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #43105d 0%,
+            #17132f 35%,
+            #08091d 75%,
+            #03030b 100%
+        );
+}
+
+/* =========================
+   STARS
+========================= */
+
+.stars {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        radial-gradient(circle, white 1px, transparent 2px),
+        radial-gradient(circle, #bda8ff 1px, transparent 2px),
+        radial-gradient(circle, #ffffff 1px, transparent 2px);
+
+    background-size:
+        80px 80px,
+        130px 130px,
+        180px 180px;
+
+    background-position:
+        10px 20px,
+        40px 70px,
+        100px 30px;
+
+    opacity: .75;
+    animation: starsMove 8s linear infinite;
+}
+
+@keyframes starsMove {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(25px);
+    }
+}
+
+/* =========================
+   MOON
+========================= */
+
+.moon {
+    position: absolute;
+
+    top: 7%;
+    right: 7%;
+
+    width: 75px;
+    height: 75px;
+
+    border-radius: 50%;
+
+    background: #fff4ff;
+
+    box-shadow:
+        0 0 15px white,
+        0 0 35px #cda9ff,
+        0 0 70px #914cff;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+h1 {
+    position: absolute;
+
+    top: 8%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    color: #d66cff;
+
+    font-size: clamp(30px, 5vw, 65px);
+
+    font-style: italic;
+
+    white-space: nowrap;
+
+    text-shadow:
+        0 0 5px #e49cff,
+        0 0 15px #a82cff,
+        0 0 35px #8b00ff;
+
+    z-index: 20;
+}
+
+/* =========================
+   HEART
+========================= */
+
+.heart-button {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 230px;
+    height: 230px;
+
+    transform: translate(-50%, -50%);
+
+    cursor: pointer;
+
+    z-index: 30;
+
+    animation: heartbeat 1.3s infinite;
+}
+
+.heart {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 125px;
+    height: 125px;
+
+    transform:
+        translate(-50%, -40%)
+        rotate(-45deg);
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffb5f4,
+            #e735e7 45%,
+            #8100a8
+        );
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 15px #ff6cff,
+        0 0 35px #e400ff,
+        0 0 75px #9c00ff;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+
+    position: absolute;
+
+    width: 125px;
+    height: 125px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffb5f4,
+            #e735e7 45%,
+            #8100a8
+        );
+}
+
+.heart::before {
+    top: -62px;
+    left: 0;
+}
+
+.heart::after {
+    top: 0;
+    left: 62px;
+}
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+        transform:
+            translate(-50%, -50%)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translate(-50%, -50%)
+            scale(1.12);
+    }
+}
+
+/* HEART DISAPPEARS */
+
+#heartOpen:checked ~ .scene .heart-button {
+    animation: heartDisappear .9s forwards;
+    pointer-events: none;
+}
+
+@keyframes heartDisappear {
+
+    0% {
+        opacity: 1;
+        transform:
+            translate(-50%, -50%)
+            scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translate(-50%, -50%)
+            scale(2.5);
+        filter: blur(15px);
+    }
+}
+
+/* =========================
+   BOUQUET
+========================= */
+
+.bouquet {
+    position: absolute;
+
+    left: 50%;
+    bottom: -10px;
+
+    width: 500px;
+    height: 620px;
+
+    transform:
+        translateX(-50%)
+        scale(.8);
+
+    opacity: 0;
+
+    transition:
+        opacity 1s ease,
+        transform 1.2s cubic-bezier(.17,.89,.32,1.3);
+
+    z-index: 15;
+}
+
+#heartOpen:checked ~ .scene .bouquet {
+    opacity: 1;
+
+    transform:
+    translateX(-50%)
+        scale(1);
+}
+
+/* =========================
+   FLOWERS
+========================= */
+
+.flower {
+    position: absolute;
+
+    width: 100px;
+    height: 300px;
+
+    bottom: 210px;
+}
+
+/* Flower positions */
+
+.flower1 {
+    left: 50px;
+    transform: rotate(-16deg);
+}
+
+.flower2 {
+    left: 125px;
+    bottom: 240px;
+    transform: rotate(-8deg);
+}
+
+.flower3 {
+    left: 200px;
+    bottom: 255px;
+}
+
+.flower4 {
+    left: 275px;
+    bottom: 235px;
+    transform: rotate(8deg);
+}
+
+.flower5 {
+    left: 350px;
+    transform: rotate(17deg);
+}
+
+.flower6 {
+    left: 165px;
+    bottom: 315px;
+    transform: rotate(-4deg);
+}
+
+.flower7 {
+    left: 300px;
+    bottom: 315px;
+    transform: rotate(5deg);
+}
+
+/* =========================
+   FLOWER BUD
+========================= */
+
+.bud {
+    position: absolute;
+
+    left: 50%;
+    top: 0;
+
+    width: 85px;
+    height: 105px;
+
+    transform: translateX(-50%);
+
+    border-radius:
+        50% 50% 45% 45%;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 25%,
+            #f7d6ff 0%,
+            #cf73f5 25%,
+            #8b25c9 60%,
+            #4b086d 100%
+        );
+
+    box-shadow:
+        inset 5px 8px 10px rgba(255,255,255,.4),
+        0 0 12px #ce65ff,
+        0 0 30px #a800ff;
+}
+
+.bud::before {
+    content: "";
+
+    position: absolute;
+
+    left: 25px;
+    top: 10px;
+
+    width: 35px;
+    height: 75px;
+
+    border-left: 4px solid rgba(255,255,255,.35);
+    border-right: 4px solid rgba(255,255,255,.25);
+
+    border-radius: 50%;
+}
+
+/* =========================
+   STEM
+========================= */
+
+.stem {
+    position: absolute;
+
+    left: 50%;
+    top: 80px;
+
+    width: 9px;
+    height: 280px;
+
+    transform: translateX(-50%);
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #174e09,
+            #70cf32,
+            #164d08
+        );
+
+    box-shadow:
+        0 0 8px #4dbb24;
+}
+
+/* =========================
+   LEAVES
+========================= */
+
+.leaf {
+    position: absolute;
+
+    width: 75px;
+    height: 35px;
+
+    border-radius:
+        100% 0 100% 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8ee83b,
+            #42a91e,
+            #12530b
+        );
+
+    box-shadow:
+        0 0 10px #42a91e;
+}
+
+.leaf1 {
+    left: 90px;
+    bottom: 245px;
+    transform: rotate(25deg);
+}
+
+.leaf2 {
+    left: 160px;
+    bottom: 290px;
+    transform: rotate(-25deg);
+}
+
+.leaf3 {
+    left: 240px;
+    bottom: 250px;
+    transform: rotate(30deg);
+}
+
+.leaf4 {
+    left: 315px;
+    bottom: 290px;
+    transform: rotate(-30deg);
+}
+
+.leaf5 {
+    left: 205px;
+    bottom: 210px;
+    transform: rotate(-10deg);
+}
+
+/* =========================
+   WRAPPER
+========================= */
+
+.wrapper {
+    position: absolute;
+
+    left: 50%;
+    bottom: 0;
+
+    width: 350px;
+    height: 230px;
+
+    transform: translateX(-50%);
+
+    z-index: 50;
+}
+
+/* =========================
+   ENVELOPE
+========================= */
+
+.envelope {
+    position: absolute;
+
+    left: 50%;
+    bottom: 25px;
+
+    width: 320px;
+    height: 210px;
+
+    transform: translateX(-50%);
+
+    cursor: pointer;
+
+    filter:
+        drop-shadow(0 10px 15px rgba(0,0,0,.5));
+
+    transition: .5s;
+}
+
+.envelope-back {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd3e4,
+            #ff9fc9
+        );
+
+    border-radius: 8px;
+
+    border: 3px solid #fff0f8;
+
+    box-shadow:
+        0 0 15px #ff8ec4;
+}
+
+.envelope-front {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 65%;
+
+    background: #ffacd0;
+
+    clip-path: polygon(
+        0 0,
+        50% 65%,
+        100% 0,
+        100% 100%,
+        0 100%
+    );
+
+    z-index: 5;
+}
+
+.envelope-flap {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: #ffc0da;
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        50% 58%
+    );
+
+    transform-origin: top;
+
+    transition:
+        transform .8s ease;
+
+    z-index: 8;
+}
+/* =========================
+   ENVELOPE OPEN
+========================= */
+
+#letterOpen:checked ~ .scene .envelope-flap {
+    transform: rotateX(180deg);
+
+    z-index: 2;
+}
+
+#letterOpen:checked ~ .scene .envelope {
+    transform:
+        translateX(-50%)
+        translateY(30px);
+}
+
+/* =========================
+   HEART ON ENVELOPE
+========================= */
+
+.small-heart {
+    position: absolute;
+
+    left: 50%;
+    top: 52%;
+
+    transform:
+        translate(-50%, -50%);
+
+    color: #f052a8;
+
+    font-size: 35px;
+
+    z-index: 10;
+
+    text-shadow:
+        0 0 8px #ff80c5;
+}
+
+/* =========================
+   LETTER
+========================= */
+
+.letter {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: min(750px, 90vw);
+    height: min(520px, 70vh);
+
+    transform:
+        translate(-50%, -50%)
+        scale(.2);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity .8s ease,
+        transform 1s cubic-bezier(.17,.89,.32,1.3);
+
+    z-index: 100;
+}
+
+#letterOpen:checked ~ .scene .letter {
+    opacity: 1;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1);
+
+    pointer-events: auto;
+}
+
+/* Paper */
+
+.letter-paper {
+    width: 100%;
+    height: 100%;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffaff,
+            #fff0fa
+        );
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,.8),
+        0 0 60px rgba(224,76,255,.5),
+        0 20px 60px rgba(0,0,0,.7);
+}
+
+.letter-border {
+    width: 100%;
+    height: 100%;
+
+    padding: 30px;
+
+    border: 3px dotted #6c6c6c;
+
+    color: #29202c;
+
+    text-align: left;
+}
+
+.letter-border h2 {
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+
+.letter-border p {
+    font-family: Arial, sans-serif;
+
+    font-size: 18px;
+
+    line-height: 1.6;
+}
+
+.cute-picture {
+    width: 180px;
+    height: 150px;
+
+    margin: 30px auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 80px;
+
+    color: #ff6fbd;
+
+    background:
+        radial-gradient(
+            circle,
+            #fff 0%,
+            #ffe0f0 60%,
+            #ffb4d6 100%
+        );
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 25px #ffb1d7;
+
+    animation: pictureFloat 2s infinite;
+}
+
+@keyframes pictureFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.bottom-text {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.signature {
+    text-align: right;
+
+    margin-top: 25px;
+
+    color: #b32783;
+
+    font-size: 20px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    h1 {
+        top: 8%;
+        font-size: 32px;
+    }
+
+    .heart-button {
+        transform:
+            translate(-50%, -50%)
+            scale(.8);
+    }
+
+    .bouquet {
+        transform:
+            translateX(-50%)
+            scale(.65);
+    }
+
+    #heartOpen:checked ~ .scene .bouquet {
+        transform:
+            translateX(-50%)
+            scale(.65);
+    }
+
+    .letter {
+        width: 92vw;
+        height: 65vh;
+    }
+
+    .letter-border {
+        padding: 18px;
+    }
+
+    .letter-border h2 {
+        font-size: 20px;
+    }
+
+    .letter-border p {
+        font-size: 14px;
+    }
+
+    .cute-picture {
+        width: 130px;
+        height: 110px;
+        font-size: 60px;
+        margin: 20px auto;
+    }
+
+    .envelope {
+        width: 280px;
+        height: 180px;
+    }
+}
